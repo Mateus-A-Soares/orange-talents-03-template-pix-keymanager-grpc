@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.com.zupacademy.Mateus";
+option java_outer_classname = "OrangeTalents03TemplatePixKeymanagerGrpc";
+option objc_class_prefix = "HLW";
+
+package br.com.zupacademy.Mateus;
+
+service OrangeTalents03TemplatePixKeymanagerGrpcService {
+  rpc send (OrangeTalents03TemplatePixKeymanagerGrpcRequest) returns (OrangeTalents03TemplatePixKeymanagerGrpcReply) {}
+}
+
+message OrangeTalents03TemplatePixKeymanagerGrpcRequest {
+  string name = 1;
+}
+
+message OrangeTalents03TemplatePixKeymanagerGrpcReply {
+  string message = 1;
+}
