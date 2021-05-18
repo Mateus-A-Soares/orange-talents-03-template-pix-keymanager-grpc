@@ -1,3 +1,7 @@
 micronaut:
   application:
     name: orangeTalents03TemplatePixKeymanagerGrpc
+
+grpc:
+  server:
+    port: ${PIX_KEYMANAGER_APPLICATION_PORT:50051}

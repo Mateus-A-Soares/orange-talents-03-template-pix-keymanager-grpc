@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.com.zupacademy.Mateus";
+option java_outer_classname = "ChavePixGrpc";
+
+package br.com.zupacademy.Mateus;
+
+/**
+  Service que declara as chamadas relativas ao gerenciamento de chaves PIX.
+ */
+service ChavePixService {
+
+    /**
+        Chamada de cadastro de chaves pix.
+        Recebe uma request informando o usuário, o tipo de chave, o valor da chave e o tipo de conta relativa a chave.
+        Retorna o ID da chave cadastrada caso a request seja válida e o processo de cadastro ocorra com sucesso.
+     */
+    rpc Registra(CadastraChavePixRequest) returns (ChavePixCadastradaResponse) {}
+}
+
+enum TipoChave {
+    TIPO_CHAVE_UNSPECIFIED = 0;
+    TIPO_CHAVE_CPF = 1;
+    TIPO_CHAVE_TELEFONE = 2;
+    TIPO_CHAVE_EMAIL = 3;
+    TIPO_CHAVE_ALEATORIA = 4;
+}
+
+enum TipoConta {
+    TIPO_CONTA_POUPANCA = 0;
+    TIPO_CONTA_CORRENTE = 1;
+}
+
+/**
+    Modelagem dos dados que devem ser passados pela requisição gRpc na chamada de cadastro de uma chave pix.
+ */
+message CadastraChavePixRequest {
+    string cliente_id = 1;
+    TipoChave tipo_chave = 2;
+    string valor_chave = 3;
+    TipoConta tipo_conta = 4;
+}
+
+/**
+    Modelagem da resposta que deve ser passada pelo servidor que implementará o serviço de cadastro de uma chave pix.
+ */
+message ChavePixCadastradaResponse{
+    string chave_pix_id = 1;
+}
