@@ -28,8 +28,9 @@ enum TipoChave {
 }
 
 enum TipoConta {
-    TIPO_CONTA_POUPANCA = 0;
-    TIPO_CONTA_CORRENTE = 1;
+    TIPO_CONTA_UNSPECIFIED = 0;
+    TIPO_CONTA_POUPANCA = 1;
+    TIPO_CONTA_CORRENTE = 2;
 }
 
 /**
