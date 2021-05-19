@@ -13,9 +13,11 @@ datasources:
     username: ${PIX_KEYMANAGER_DATABASE_USERNAME}
     password: ${PIX_KEYMANAGER_DATABASE_PASSWORD}
     dialect: POSTGRES
+    schema-generate: CREATE_DROP
 hibernate:
   hbm2ddl:
     auto: update
+jpa.default.properties.hibernate.hbm2ddl.auto: update
 
 itauErpService:
   url: http://localhost:9091/api/v1
