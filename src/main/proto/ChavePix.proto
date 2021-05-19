@@ -19,7 +19,7 @@ service ChavePixService {
     rpc Registra(CadastraChavePixRequest) returns (ChavePixCadastradaResponse) {}
 }
 
-enum TipoChave {
+enum TipoChaveRequest {
     TIPO_CHAVE_UNSPECIFIED = 0;
     TIPO_CHAVE_CPF = 1;
     TIPO_CHAVE_TELEFONE = 2;
@@ -27,7 +27,7 @@ enum TipoChave {
     TIPO_CHAVE_ALEATORIA = 4;
 }
 
-enum TipoConta {
+enum TipoContaRequest {
     TIPO_CONTA_UNSPECIFIED = 0;
     TIPO_CONTA_POUPANCA = 1;
     TIPO_CONTA_CORRENTE = 2;
@@ -38,9 +38,9 @@ enum TipoConta {
  */
 message CadastraChavePixRequest {
     string cliente_id = 1;
-    TipoChave tipo_chave = 2;
+    TipoChaveRequest tipo_chave = 2;
     string valor_chave = 3;
-    TipoConta tipo_conta = 4;
+    TipoContaRequest tipo_conta = 4;
 }
 
 /**
