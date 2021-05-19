@@ -5,3 +5,15 @@ micronaut:
 grpc:
   server:
     port: ${PIX_KEYMANAGER_APPLICATION_PORT:50051}
+
+datasources:
+  default:
+    url: jdbc:postgresql://${PIX_KEYMANAGER_DATABASE_HOST}:${PIX_KEYMANAGER_DATABASE_PORT:5432}/${PIX_KEYMANAGER_DATABASE_NAME}
+    driverClassName: org.postgresql.Driver
+    username: ${PIX_KEYMANAGER_DATABASE_USERNAME}
+    password: ${PIX_KEYMANAGER_DATABASE_PASSWORD}
+    dialect: POSTGRES
+hibernate:
+  hbm2ddl:
+    auto: update
+
