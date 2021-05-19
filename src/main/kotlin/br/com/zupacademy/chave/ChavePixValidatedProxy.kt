@@ -14,4 +14,8 @@ data class ChavePixValidatedProxy(
     val chave: String,
     @field:NotNull
     val tipoConta: TipoConta?
-)
+) {
+    fun toModel(): ChavePix {
+        return ChavePix(clienteId = clienteId, tipoChave = tipoChave, chave = chave, tipoConta = tipoConta)
+    }
+}
