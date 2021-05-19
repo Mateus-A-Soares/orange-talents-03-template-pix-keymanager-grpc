@@ -1,10 +1,10 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "br.com.zupacademy.Mateus";
+option java_package = "br.com.zupacademy";
 option java_outer_classname = "ChavePixGrpc";
 
-package br.com.zupacademy.Mateus;
+package br.com.zupacademy;
 
 /**
   Service que declara as chamadas relativas ao gerenciamento de chaves PIX.

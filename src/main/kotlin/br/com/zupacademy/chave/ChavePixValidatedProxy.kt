@@ -1,4 +1,4 @@
-package br.com.zupacademy.Mateus.chave
+package br.com.zupacademy.chave
 
 import io.micronaut.core.annotation.Introspected
 import javax.validation.constraints.NotBlank

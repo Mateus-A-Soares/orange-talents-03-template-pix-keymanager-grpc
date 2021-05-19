@@ -8,7 +8,7 @@ plugins {
 }
 
 version = "0.5"
-group = "br.com.zupacademy.Mateus"
+group = "br.com.zupacademy"
 
 repositories {
     mavenCentral()
@@ -18,7 +18,7 @@ micronaut {
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("br.com.zupacademy.Mateus.*")
+        annotations("br.com.zupacademy.*")
     }
 }
 
@@ -37,11 +37,13 @@ dependencies {
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     runtimeOnly("org.postgresql:postgresql")
+
+    implementation("io.micronaut:micronaut-http-client")
 }
 
 
 application {
-    mainClass.set("br.com.zupacademy.Mateus.ApplicationKt")
+    mainClass.set("br.com.zupacademy.ApplicationKt")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")

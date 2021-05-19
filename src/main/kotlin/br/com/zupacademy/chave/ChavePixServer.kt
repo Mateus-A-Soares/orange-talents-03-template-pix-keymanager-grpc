@@ -1,8 +1,8 @@
-package br.com.zupacademy.Mateus.chave
+package br.com.zupacademy.chave
 
-import br.com.zupacademy.Mateus.CadastraChavePixRequest
-import br.com.zupacademy.Mateus.ChavePixCadastradaResponse
-import br.com.zupacademy.Mateus.ChavePixServiceGrpc
+import br.com.zupacademy.CadastraChavePixRequest
+import br.com.zupacademy.ChavePixCadastradaResponse
+import br.com.zupacademy.ChavePixServiceGrpc
 import io.grpc.stub.StreamObserver
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -1,10 +1,10 @@
-package br.com.zupacademy.Mateus.chave
+package br.com.zupacademy.chave
 
-import br.com.zupacademy.Mateus.ChavePixCadastradaResponse
+import br.com.zupacademy.ChavePixCadastradaResponse
 import javax.inject.Singleton
 
 @Singleton
-class ChavePixService {
+class ChavePixService(/*@Inject val itauClient : ItauErpClient*/) {
 
     fun cadastra(chavePixValidada: ChavePixValidatedProxy): ChavePixCadastradaResponse {
 //        TODO("IMPLEMENTAR CADASTRO DA CHAVE PIX")

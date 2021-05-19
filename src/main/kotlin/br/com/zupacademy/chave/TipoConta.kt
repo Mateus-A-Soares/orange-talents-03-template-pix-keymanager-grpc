@@ -1,4 +1,4 @@
-package br.com.zupacademy.Mateus.chave
+package br.com.zupacademy.chave
 
 enum class TipoConta {
     POUPANCA, CORRENTE

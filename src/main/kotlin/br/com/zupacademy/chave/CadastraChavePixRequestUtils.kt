@@ -1,8 +1,8 @@
-package br.com.zupacademy.Mateus.chave
+package br.com.zupacademy.chave
 
-import br.com.zupacademy.Mateus.CadastraChavePixRequest
-import br.com.zupacademy.Mateus.TipoChaveRequest
-import br.com.zupacademy.Mateus.TipoContaRequest
+import br.com.zupacademy.CadastraChavePixRequest
+import br.com.zupacademy.TipoChaveRequest
+import br.com.zupacademy.TipoContaRequest
 import javax.validation.ConstraintViolation
 import javax.validation.Validator
 

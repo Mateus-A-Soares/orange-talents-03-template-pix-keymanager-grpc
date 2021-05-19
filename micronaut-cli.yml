@@ -1,5 +1,5 @@
 applicationType: grpc
-defaultPackage: br.com.zupacademy.Mateus
+defaultPackage: br.com.zupacademy
 testFramework: junit
 sourceLanguage: kotlin
 buildTool: gradle
