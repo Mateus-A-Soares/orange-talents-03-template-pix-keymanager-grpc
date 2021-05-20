@@ -1,5 +1,6 @@
 package br.com.zupacademy.chave
 
+import br.com.zupacademy.chave.conta.Conta
 import io.micronaut.data.annotation.DateCreated
 import java.time.Instant
 import java.util.*
@@ -11,21 +12,19 @@ import javax.validation.constraints.NotNull
 class ChavePix(
     @field:NotBlank
     @Column(nullable = false)
-    val clienteId: String?,
+    val clienteId: UUID,
 
     @field:NotBlank
     @Column(nullable = false)
-    val chave: String?,
+    val chave: String,
 
     @field:NotNull
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    val tipoChave: TipoChave?,
+    val tipoChave: TipoChave,
 
-    @field:NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    val tipoConta: TipoConta?
+    @Embedded
+    val conta: Conta
 ) {
     @Id
     @GeneratedValue
