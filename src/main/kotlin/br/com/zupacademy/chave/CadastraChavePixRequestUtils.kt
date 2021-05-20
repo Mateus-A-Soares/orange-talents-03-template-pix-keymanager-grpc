@@ -3,22 +3,18 @@ package br.com.zupacademy.chave
 import br.com.zupacademy.CadastraChavePixRequest
 import br.com.zupacademy.TipoChaveRequest
 import br.com.zupacademy.TipoContaRequest
-import javax.validation.ConstraintViolation
-import javax.validation.Validator
 
 /**
- *  Transforma o objeto CadastraChavePixRequest em um ChavePixValidatedProxy, validado pelo Validator passado como
- * parâmetro.
+ *
+ *  Transforma o objeto CadastraChavePixRequest em um ChavePixValidatedProxy
  */
-fun CadastraChavePixRequest.toValidatedProxy(validator: Validator): ChavePixValidatedProxy {
+fun CadastraChavePixRequest.toValidatedProxy(): ChavePixValidatedProxy {
     val validatedProxy = ChavePixValidatedProxy(
         clienteId = this.clienteId,
         tipoConta = this.tipoConta.toModel(),
         tipoChave = this.tipoChave.toModel(),
         chave = this.valorChave
     )
-    val violations: MutableSet<ConstraintViolation<ChavePixValidatedProxy>> = validator.validate(validatedProxy)
-    //TODO("IMPLEMENTAR TRATAMENTO PARA VALIDAÇÂO DOS ERROS")
     return validatedProxy
 }
 

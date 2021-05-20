@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull
 
 @Entity
 class ChavePix(
-    @field:NotBlank
+    @field:NotNull
     @Column(nullable = false)
     val clienteId: UUID,
 
