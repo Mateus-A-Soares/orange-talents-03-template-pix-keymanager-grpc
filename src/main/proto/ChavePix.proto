@@ -50,7 +50,11 @@ message ChavePixCadastradaResponse{
     string chave_pix_id = 1;
 }
 
-message FieldErrorDetail {
+message FieldErrorDetails {
     string field = 1;
     string message = 2;
+}
+
+message FieldErrorDetailsList {
+    repeated FieldErrorDetails field_errors = 1;
 }
