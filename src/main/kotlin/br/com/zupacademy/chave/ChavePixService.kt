@@ -3,6 +3,7 @@ package br.com.zupacademy.chave
 import br.com.zupacademy.ChavePixCadastradaResponse
 import br.com.zupacademy.itauerp.BuscarContaTipoItauErpResponse
 import br.com.zupacademy.itauerp.ItauErpClient
+import br.com.zupacademy.shared.exceptions.ApiException
 import io.micronaut.validation.Validated
 import java.lang.RuntimeException
 import javax.inject.Inject
@@ -19,8 +20,6 @@ class ChavePixService(@Inject val itauClient : ItauErpClient, @Inject val reposi
             tipoConta = chavePixValidada.tipoConta!!.itauErpParameterName
         ).body()
         contaResponse?: throw RuntimeException("Conta não encontrada")
-        if(repository.existsByChave(chavePixValidada.chave!!))
-            throw RuntimeException("Chave já cadastrada")
         val conta = contaResponse.toModel()
         val chavePix = chavePixValidada.toModel(conta)
         repository.save(chavePix)

@@ -1,6 +1,7 @@
 package br.com.zupacademy.chave
 
 import br.com.zupacademy.chave.conta.Conta
+import br.com.zupacademy.shared.constraints.ChavePixUnique
 import br.com.zupacademy.shared.constraints.ValidChavePix
 import br.com.zupacademy.shared.constraints.ValidUUID
 import io.micronaut.core.annotation.Introspected
@@ -15,6 +16,7 @@ data class ChavePixValidatedProxy(
     val clienteId: String?,
     @field:NotNull
     val tipoChave: TipoChave?,
+    @ChavePixUnique
     val chave: String?,
     @field:NotNull
     val tipoConta: TipoConta?
