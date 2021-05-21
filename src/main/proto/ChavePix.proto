@@ -49,3 +49,8 @@ message CadastraChavePixRequest {
 message ChavePixCadastradaResponse{
     string chave_pix_id = 1;
 }
+
+message FieldErrorDetail {
+    string field = 1;
+    string message = 2;
+}

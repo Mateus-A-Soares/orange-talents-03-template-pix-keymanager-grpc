@@ -22,13 +22,16 @@ annotation class ValidChavePix(
 )
 
 @Singleton
-class ValidChavePixValidator : ConstraintValidator<ValidChavePix, ChavePixValidatedProxy>{
+class ValidChavePixValidator : ConstraintValidator<ValidChavePix, ChavePixValidatedProxy> {
 
     override fun isValid(
         chavePix: ChavePixValidatedProxy,
         annotationMetadata: AnnotationValue<ValidChavePix>,
         context: ConstraintValidatorContext
     ): Boolean {
-        return chavePix.tipoChave!!.validate(chavePix.chave)
+
+        return chavePix.tipoChave?.let {
+            it.validate(chavePix.chave)
+        } ?: false
     }
 }
