@@ -17,7 +17,7 @@ class FieldNotFoundHandler : ExceptionHandler<FieldNotFoundException> {
     override fun handle(e: FieldNotFoundException): StatusWithDetails {
         return StatusWithDetails(
             Status.newBuilder()
-                .setCode(Code.ALREADY_EXISTS_VALUE)
+                .setCode(Code.FAILED_PRECONDITION_VALUE)
                 .setMessage(e.message)
                 .build()
         )

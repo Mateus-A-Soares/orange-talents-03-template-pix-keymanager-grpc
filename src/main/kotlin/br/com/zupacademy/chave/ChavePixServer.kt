@@ -17,34 +17,9 @@ class ChavePixServer(@Inject private val chavePixService: ChavePixService) :
         request: CadastraChavePixRequest,
         responseObserver: StreamObserver<ChavePixCadastradaResponse>
     ) {
-//        try {
-            val chavePixValidada: ChavePixValidatedProxy = request.toValidatedProxy()
-            val response: ChavePixCadastradaResponse = chavePixService.cadastra(chavePixValidada)
-            responseObserver.onNext(response)
-            responseObserver.onCompleted()
-//        } catch (e: ConstraintViolationException) {
-//            val status = Status.newBuilder()
-//                .setCode(Code.INVALID_ARGUMENT_VALUE)
-//                .setMessage(e.message)
-//                .build()
-//            responseObserver.onError(StatusProto.toStatusRuntimeException(status))
-//        } catch (e: FieldNotFoundException) {
-//            val status = Status.newBuilder()
-//                .setCode(Code.NOT_FOUND_VALUE)
-//                .setMessage(e.message)
-//                .build()
-//            responseObserver.onError(StatusProto.toStatusRuntimeException(status))
-//        } catch (e: UniqueFieldAlreadyExists) {
-//            val status = Status.newBuilder()
-//                .setCode(Code.ALREADY_EXISTS_VALUE)
-//                .setMessage(e.message)
-//                .build()
-//            responseObserver.onError(StatusProto.toStatusRuntimeException(status))
-//        } catch (e: Throwable) {
-//            val status: Status = Status.newBuilder()
-//                .setCode(Code.INTERNAL_VALUE)
-//                .build()
-//            responseObserver.onError(StatusProto.toStatusRuntimeException(status))
-//        }
+        val chavePixValidada: ChavePixValidatedProxy = request.toValidatedProxy()
+        val response: ChavePixCadastradaResponse = chavePixService.cadastra(chavePixValidada)
+        responseObserver.onNext(response)
+        responseObserver.onCompleted()
     }
 }
