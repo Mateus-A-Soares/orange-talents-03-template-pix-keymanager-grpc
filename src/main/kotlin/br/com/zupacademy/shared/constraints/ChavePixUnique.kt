@@ -15,7 +15,7 @@ import kotlin.reflect.KClass
 @Target(FIELD)
 @Retention(RUNTIME)
 @Constraint(validatedBy = [ChavePixUniqueValidator::class])
-annotation class ChavePixUnique(val message: String = "Valor para o campo já está cadastastrado",
+annotation class ChavePixUnique(val message: String = "Valor para o campo já está cadastrado",
     val groups: Array<KClass<Any>> = [],
     val payload: Array<KClass<Payload>> = []
 )

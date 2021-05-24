@@ -16,7 +16,7 @@ import kotlin.reflect.KClass
 @Retention(RUNTIME)
 @Constraint(validatedBy = [ValidChavePixValidator::class])
 annotation class ValidChavePix(
-    val message: String = "Chave Pix inválida (\${validatedValue.tipoChave})",
+    val message: String = "Chave Pix inválida",
     val groups: Array<KClass<Any>> = [],
     val payload: Array<KClass<Payload>> = []
 )
