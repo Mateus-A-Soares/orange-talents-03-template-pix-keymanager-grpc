@@ -8,10 +8,10 @@ grpc:
 
 datasources:
   default:
-    url: jdbc:postgresql://${PIX_KEYMANAGER_DATABASE_HOST}:${PIX_KEYMANAGER_DATABASE_PORT:5432}/${PIX_KEYMANAGER_DATABASE_NAME}
+    url: jdbc:postgresql://${PIX_KEYMANAGER_DEV_DATABASE_HOST:localhost}:${PIX_KEYMANAGER_DEV_DATABASE_PORT:5432}/${PIX_KEYMANAGER_DEV_DATABASE_NAME:pixkeymanager_dev_db}
     driverClassName: org.postgresql.Driver
-    username: ${PIX_KEYMANAGER_DATABASE_USERNAME}
-    password: ${PIX_KEYMANAGER_DATABASE_PASSWORD}
+    username: ${PIX_KEYMANAGER_DEV_DATABASE_USERNAME:postgres}
+    password: ${PIX_KEYMANAGER_DEV_DATABASE_PASSWORD:postgres132}
     dialect: POSTGRES
     schema-generate: CREATE_DROP
 hibernate:
@@ -20,7 +20,7 @@ hibernate:
 jpa.default.properties.hibernate.hbm2ddl.auto: update
 
 itauErpService:
-  url: http://localhost:9091/api/v1
+  url: ${PIX_KEYMANAGER_DEV_ITAUERP_URL:http://localhost:9091/api/v1}
   contas:
     path: /private/contas/todas
   cliente:

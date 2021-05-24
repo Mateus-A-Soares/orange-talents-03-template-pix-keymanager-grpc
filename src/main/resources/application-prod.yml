@@ -1,0 +1,30 @@
+micronaut:
+  application:
+    name: orangeTalents03TemplatePixKeymanagerGrpc
+
+grpc:
+  server:
+    port: ${PIX_KEYMANAGER_APPLICATION_PORT:50051}
+
+datasources:
+  default:
+    url: jdbc:postgresql://${PIX_KEYMANAGER_DATABASE_HOST}:${PIX_KEYMANAGER_DATABASE_PORT:5432}/${PIX_KEYMANAGER_DATABASE_NAME}
+    driverClassName: org.postgresql.Driver
+    username: ${PIX_KEYMANAGER_DATABASE_USERNAME}
+    password: ${PIX_KEYMANAGER_DATABASE_PASSWORD}
+    dialect: POSTGRES
+    schema-generate: CREATE_DROP
+hibernate:
+  hbm2ddl:
+    auto: update
+jpa.default.properties.hibernate.hbm2ddl.auto: update
+
+itauErpService:
+  url: ${PIX_KEYMANAGER_ITAUERP_URL}
+  contas:
+    path: /private/contas/todas
+  cliente:
+    path: /clientes/{id}
+    contas:
+      path: ${itauErpService.cliente.path}/contas
+
