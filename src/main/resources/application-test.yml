@@ -11,9 +11,17 @@ datasources:
     url: jdbc:h2:mem:pixkeymanager_test_db
     driverClassName: org.h2.Driver
     username: sa
-    password: sa
+    password: ''
     schema-generate: CREATE_DROP
     dialect: H2
+jpa:
+  default:
+    properties:
+      hibernate:
+        bytecode:
+          provider: none
+        hbm2ddl:
+          auto: update
 
 itauErpService:
   url: http://localhost:9091/api/v1
