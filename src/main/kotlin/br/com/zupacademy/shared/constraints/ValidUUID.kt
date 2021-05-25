@@ -7,10 +7,10 @@ import javax.inject.Singleton
 import javax.validation.Constraint
 import javax.validation.Payload
 import kotlin.annotation.AnnotationRetention.RUNTIME
-import kotlin.annotation.AnnotationTarget.FIELD
+import kotlin.annotation.AnnotationTarget.*
 import kotlin.reflect.KClass
 
-@Target(FIELD)
+@Target(FIELD, PROPERTY, VALUE_PARAMETER)
 @Retention(RUNTIME)
 @Constraint(validatedBy = [ValidUUIDValidator::class])
 annotation class ValidUUID(
