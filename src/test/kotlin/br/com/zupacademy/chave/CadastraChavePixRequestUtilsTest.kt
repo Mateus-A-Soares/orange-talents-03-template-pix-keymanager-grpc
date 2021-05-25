@@ -3,19 +3,21 @@ package br.com.zupacademy.chave
 import br.com.zupacademy.CadastraChavePixRequest
 import br.com.zupacademy.TipoChaveRequest
 import br.com.zupacademy.TipoContaRequest
+import br.com.zupacademy.chave.conta.Conta
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import io.micronaut.validation.validator.Validator
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
+import java.util.*
 import java.util.stream.Stream
+import javax.inject.Inject
 
 @Nested
-@MicronautTest
+@MicronautTest(transactional = false)
 internal class CadastraChavePixRequestToValidatedProxy(@Inject val validator: Validator) {
 
     private companion object {
@@ -37,6 +39,20 @@ internal class CadastraChavePixRequestToValidatedProxy(@Inject val validator: Va
             Arguments.of(TipoChaveRequest.TIPO_CHAVE_TELEFONE, "1111111111", TipoChave.TELEFONE),
             Arguments.of(TipoChaveRequest.TIPO_CHAVE_ALEATORIA, "A", TipoChave.ALEATORIA)
         )
+    }
+
+    @Test
+    fun validatedProxyToModelDeveGerarChaveAleatoria() {
+        val request = CadastraChavePixRequest.newBuilder()
+            .setClienteId("234d861f-9b3d-4259-976b-b79750199ed5")
+            .setTipoChave(TipoChaveRequest.TIPO_CHAVE_ALEATORIA)
+            .setTipoConta(TipoContaRequest.TIPO_CONTA_CORRENTE)
+            .setValorChave("").build()
+        val model = request.toValidatedProxy().toModel(Conta(instituicao = "", agencia= "", numero = "", tipo = request.tipoConta.toModel()!!))
+        assertEquals(TipoChave.ALEATORIA, model.tipoChave)
+        assertDoesNotThrow {
+            UUID.fromString(model.chave)
+        }
     }
 
     @ParameterizedTest

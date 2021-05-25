@@ -26,7 +26,7 @@ data class ChavePixValidatedProxy(
         return ChavePix(
             clienteId = UUID.fromString(clienteId!!),
             tipoChave = tipoChave!!,
-            chave = if (tipoChave!!.equals(TipoChave.ALEATORIA)) UUID.randomUUID().toString() else chave!!,
+            chave = if (tipoChave == TipoChave.ALEATORIA) UUID.randomUUID().toString() else chave!!,
             conta = conta
         )
     }
