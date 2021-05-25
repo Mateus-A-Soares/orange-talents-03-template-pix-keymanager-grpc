@@ -44,19 +44,16 @@ dependencies {
     implementation("io.micronaut.xml:micronaut-jackson-xml")
     implementation("io.micronaut:micronaut-http-client")
 
+    kaptTest "io.micronaut:micronaut-inject-java"
+    testImplementation("com.h2database:h2")
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.mockito:mockito-core")
+    testImplementation("org.mockito:mockito-junit-jupiter")
+    testImplementation("org.testcontainers:junit-jupiter")
+
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     runtimeOnly("org.postgresql:postgresql")
-
-    kaptTest "io.micronaut:micronaut-inject-java"
-    testImplementation('io.micrometer:micrometer-core:1.0.2')
-    testImplementation("org.mockito:mockito-core")
-    testImplementation("org.mockito:mockito-junit-jupiter:3.8.0")
-    testImplementation("com.h2database:h2:1.4.200")
-    testImplementation("org.hamcrest:hamcrest-core:2.2")
-    testImplementation("org.testcontainers:junit-jupiter")
-    testImplementation("io.micronaut:micronaut-http-client")
-    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 
