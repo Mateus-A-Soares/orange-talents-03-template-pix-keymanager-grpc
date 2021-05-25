@@ -6,16 +6,9 @@ option java_outer_classname = "ChavePixGrpc";
 
 package br.com.zupacademy;
 
-/**
-  Service que declara as chamadas relativas ao gerenciamento de chaves PIX.
- */
-service ChavePixService {
+// CADASTRA
+service CadastraChavePixService {
 
-    /**
-        Chamada de cadastro de chaves pix.
-        Recebe uma request informando o usuário, o tipo de chave, o valor da chave e o tipo de conta relativa a chave.
-        Retorna o ID da chave cadastrada caso a request seja válida e o processo de cadastro ocorra com sucesso.
-     */
     rpc Registra(CadastraChavePixRequest) returns (ChavePixCadastradaResponse) {}
 }
 
@@ -33,9 +26,6 @@ enum TipoContaRequest {
     TIPO_CONTA_CORRENTE = 2;
 }
 
-/**
-    Modelagem dos dados que devem ser passados pela requisição gRpc na chamada de cadastro de uma chave pix.
- */
 message CadastraChavePixRequest {
     string cliente_id = 1;
     TipoChaveRequest tipo_chave = 2;
@@ -43,13 +33,26 @@ message CadastraChavePixRequest {
     TipoContaRequest tipo_conta = 4;
 }
 
-/**
-    Modelagem da resposta que deve ser passada pelo servidor que implementará o serviço de cadastro de uma chave pix.
- */
-message ChavePixCadastradaResponse{
+message ChavePixCadastradaResponse {
     string chave_pix_id = 1;
 }
 
+// DELETA
+service DeletaChavePixService {
+
+    //    rpc Deleta(DeletaChavePixRequest) returns (google.protobuf.Empty) {}
+    rpc Deleta(DeletaChavePixRequest) returns (DeletaChavePixResponse) {}
+}
+
+message DeletaChavePixRequest {
+    string cliente_id = 1;
+    string chave_pix_id = 2;
+}
+
+message DeletaChavePixResponse {
+}
+
+// ERROR MESSAGE
 message FieldErrorDetails {
     string field = 1;
     string message = 2;
