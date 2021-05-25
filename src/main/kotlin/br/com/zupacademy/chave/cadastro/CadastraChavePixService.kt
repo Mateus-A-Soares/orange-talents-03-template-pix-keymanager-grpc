@@ -1,7 +1,7 @@
-package br.com.zupacademy.chave
+package br.com.zupacademy.chave.cadastro
 
 import br.com.zupacademy.ChavePixCadastradaResponse
-import br.com.zupacademy.chave.cadastro.ChavePixValidatedProxy
+import br.com.zupacademy.chave.ChavePixRespository
 import br.com.zupacademy.itauerp.BuscarContaTipoItauErpResponse
 import br.com.zupacademy.itauerp.ItauErpClient
 import br.com.zupacademy.shared.exceptions.FieldNotFoundException
@@ -13,7 +13,7 @@ import javax.validation.Valid
 
 @Singleton
 @Validated
-class ChavePixService(@Inject val itauClient : ItauErpClient, @Inject val repository: ChavePixRespository) {
+class CadastraChavePixService(@Inject val itauClient : ItauErpClient, @Inject val repository: ChavePixRespository) {
 
     fun cadastra(@Valid chavePixValidada: ChavePixValidatedProxy): ChavePixCadastradaResponse {
         val contaResponse: BuscarContaTipoItauErpResponse? = itauClient.buscaPorContaTipo(

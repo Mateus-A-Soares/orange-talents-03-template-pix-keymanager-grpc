@@ -1,7 +1,7 @@
 package br.com.zupacademy.chave.cadastro
 
 import br.com.zupacademy.*
-import br.com.zupacademy.ChavePixServiceGrpc.ChavePixServiceBlockingStub
+import br.com.zupacademy.CadastraChavePixServiceGrpc.CadastraChavePixServiceBlockingStub
 import br.com.zupacademy.chave.ChavePix
 import br.com.zupacademy.chave.ChavePixRespository
 import br.com.zupacademy.chave.TipoChave
@@ -33,7 +33,7 @@ import javax.inject.Inject
 @MicronautTest(transactional = false)
 internal class RegistraChavePixTest(
     val repository: ChavePixRespository,
-    val grpcClient: ChavePixServiceBlockingStub
+    val grpcClient: CadastraChavePixServiceBlockingStub
 ) {
 
     companion object {
@@ -51,8 +51,8 @@ internal class RegistraChavePixTest(
     @Factory
     class Clients {
         @Bean
-        fun blockingStub(@GrpcChannel(GrpcServerChannel.NAME) channel: ManagedChannel): ChavePixServiceBlockingStub {
-            return ChavePixServiceGrpc.newBlockingStub(channel)
+        fun blockingStub(@GrpcChannel(GrpcServerChannel.NAME) channel: ManagedChannel): CadastraChavePixServiceBlockingStub {
+            return CadastraChavePixServiceGrpc.newBlockingStub(channel)
         }
     }
 
