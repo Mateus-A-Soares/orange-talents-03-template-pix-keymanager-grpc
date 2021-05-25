@@ -1,8 +1,10 @@
-package br.com.zupacademy.chave
+package br.com.zupacademy.chave.cadastro
 
 import br.com.zupacademy.CadastraChavePixRequest
 import br.com.zupacademy.TipoChaveRequest
 import br.com.zupacademy.TipoContaRequest
+import br.com.zupacademy.chave.TipoChave
+import br.com.zupacademy.chave.TipoConta
 import br.com.zupacademy.chave.conta.Conta
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import io.micronaut.validation.validator.Validator

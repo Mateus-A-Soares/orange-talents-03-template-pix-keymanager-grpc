@@ -1,9 +1,11 @@
-package br.com.zupacademy.chave
+package br.com.zupacademy.chave.cadastro
 
 import br.com.zupacademy.CadastraChavePixRequest
 import br.com.zupacademy.ChavePixCadastradaResponse
 import br.com.zupacademy.TipoChaveRequest
 import br.com.zupacademy.TipoContaRequest
+import br.com.zupacademy.chave.ChavePixRespository
+import br.com.zupacademy.chave.ChavePixService
 import br.com.zupacademy.itauerp.BuscarContaTipoItauErpResponse
 import br.com.zupacademy.itauerp.InstituicaoResponse
 import br.com.zupacademy.itauerp.ItauErpClient

@@ -1,6 +1,6 @@
 package br.com.zupacademy.shared.constraints
 
-import br.com.zupacademy.chave.ChavePixValidatedProxy
+import br.com.zupacademy.chave.cadastro.ChavePixValidatedProxy
 import io.micronaut.core.annotation.AnnotationValue
 import io.micronaut.validation.validator.constraints.ConstraintValidator
 import io.micronaut.validation.validator.constraints.ConstraintValidatorContext

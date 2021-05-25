@@ -1,6 +1,7 @@
 package br.com.zupacademy.chave
 
 import br.com.zupacademy.ChavePixCadastradaResponse
+import br.com.zupacademy.chave.cadastro.ChavePixValidatedProxy
 import br.com.zupacademy.itauerp.BuscarContaTipoItauErpResponse
 import br.com.zupacademy.itauerp.ItauErpClient
 import br.com.zupacademy.shared.exceptions.FieldNotFoundException

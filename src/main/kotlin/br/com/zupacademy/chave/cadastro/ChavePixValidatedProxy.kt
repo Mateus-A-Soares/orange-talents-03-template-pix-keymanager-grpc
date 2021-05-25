@@ -1,5 +1,8 @@
-package br.com.zupacademy.chave
+package br.com.zupacademy.chave.cadastro
 
+import br.com.zupacademy.chave.ChavePix
+import br.com.zupacademy.chave.TipoChave
+import br.com.zupacademy.chave.TipoConta
 import br.com.zupacademy.chave.conta.Conta
 import br.com.zupacademy.shared.constraints.ValidChavePix
 import br.com.zupacademy.shared.constraints.ValidUUID

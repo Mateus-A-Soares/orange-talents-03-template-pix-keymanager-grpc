@@ -1,8 +1,9 @@
-package br.com.zupacademy.chave
+package br.com.zupacademy.chave.cadastro
 
 import br.com.zupacademy.CadastraChavePixRequest
 import br.com.zupacademy.ChavePixCadastradaResponse
 import br.com.zupacademy.ChavePixServiceGrpc
+import br.com.zupacademy.chave.ChavePixService
 import br.com.zupacademy.shared.exceptions.handlers.config.ErrorHandler
 import io.grpc.stub.StreamObserver
 import javax.inject.Inject
@@ -10,7 +11,7 @@ import javax.inject.Singleton
 
 @ErrorHandler
 @Singleton
-class ChavePixServer(@Inject private val chavePixService: ChavePixService) :
+class CadastraChavePixEndpoint(@Inject private val chavePixService: ChavePixService) :
     ChavePixServiceGrpc.ChavePixServiceImplBase() {
 
     override fun registra(
