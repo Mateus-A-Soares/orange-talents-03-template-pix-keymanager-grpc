@@ -3,6 +3,7 @@ package br.com.zupacademy.chave.deleta
 import br.com.zupacademy.chave.ChavePixRespository
 import br.com.zupacademy.shared.constraints.ValidUUID
 import br.com.zupacademy.shared.exceptions.FieldNotFoundException
+import com.google.rpc.Code
 import io.micronaut.validation.Validated
 import java.util.*
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class DeleteChavePixService(@Inject val repository: ChavePixRespository) {
     ) {
         val clienteUuid = UUID.fromString(clienteId)
         val chaveUuid = UUID.fromString(chaveId)
-        val chave = repository.findByIdAndClienteId(chaveUuid, clienteUuid)?: throw FieldNotFoundException(field = "chave", message = "Chave não está na lista de chaves do cliente")
+        val chave = repository.findByIdAndClienteId(chaveUuid, clienteUuid)?: throw FieldNotFoundException(field = "chave", message = "Chave não está na lista de chaves do cliente", rpcCode = Code.NOT_FOUND)
         repository.delete(chave)
     }
 }

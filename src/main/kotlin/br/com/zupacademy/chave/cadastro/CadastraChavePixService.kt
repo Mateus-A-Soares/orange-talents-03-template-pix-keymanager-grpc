@@ -6,6 +6,7 @@ import br.com.zupacademy.itauerp.BuscarContaTipoItauErpResponse
 import br.com.zupacademy.itauerp.ItauErpClient
 import br.com.zupacademy.shared.exceptions.FieldNotFoundException
 import br.com.zupacademy.shared.exceptions.UniqueFieldAlreadyExistsException
+import com.google.rpc.Code
 import io.micronaut.validation.Validated
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,7 +21,7 @@ class CadastraChavePixService(@Inject val itauClient : ItauErpClient, @Inject va
             clienteId = chavePixValidada.clienteId!!,
             tipoConta = chavePixValidada.tipoConta!!.itauErpParameterName
         ).body()
-        contaResponse?: throw FieldNotFoundException(field = "Conta", message = "Conta não foi encontrada")
+        contaResponse?: throw FieldNotFoundException(field = "Conta", message = "Conta não foi encontrada", rpcCode = Code.FAILED_PRECONDITION)
         if(repository.existsByChave(chavePixValidada.chave!!)) throw UniqueFieldAlreadyExistsException(field = "chave")
         val conta = contaResponse.toModel()
         val chavePix = chavePixValidada.toModel(conta)
