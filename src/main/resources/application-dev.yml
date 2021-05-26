@@ -1,7 +1,3 @@
-micronaut:
-  application:
-    name: orangeTalents03TemplatePixKeymanagerGrpc
-
 grpc:
   server:
     port: ${PIX_KEYMANAGER_APPLICATION_PORT:50051}
@@ -18,13 +14,4 @@ hibernate:
   hbm2ddl:
     auto: update
 jpa.default.properties.hibernate.hbm2ddl.auto: update
-
-itauErpService:
-  url: ${PIX_KEYMANAGER_DEV_ITAUERP_URL:http://localhost:9091/api/v1}
-  contas:
-    path: /private/contas/todas
-  cliente:
-    path: /clientes/{id}
-    contas:
-      path: ${itauErpService.cliente.path}/contas
 
