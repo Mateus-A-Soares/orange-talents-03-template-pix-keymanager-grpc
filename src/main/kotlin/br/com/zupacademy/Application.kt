@@ -1,4 +1,4 @@
-package br.com.zupacademy.Mateus
+package br.com.zupacademy
 
 import io.micronaut.runtime.Micronaut.*
 fun main(args: Array<String>) {
