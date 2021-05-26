@@ -94,7 +94,7 @@ internal class CadastraChavePixRequestToValidatedProxy(@Inject val validator: Va
     @Test
     fun deveRetornarValidateProxyComErrosDeValidacao() {
         val request = CadastraChavePixRequest.newBuilder()
-            .setClienteId("")
+            .setClienteId("1234")
             .setTipoChave(TipoChaveRequest.TIPO_CHAVE_UNSPECIFIED)
             .setTipoConta(TipoContaRequest.TIPO_CONTA_UNSPECIFIED)
             .setValorChave("").build()
@@ -102,13 +102,10 @@ internal class CadastraChavePixRequestToValidatedProxy(@Inject val validator: Va
         assertEquals(null, validatedProxy.tipoChave)
         assertEquals(null, validatedProxy.tipoConta)
         val constraintViolations = validator.validate(validatedProxy)
-        assertEquals(constraintViolations.size, 5)
+        assertEquals(4, constraintViolations.size)
         with(constraintViolations) {
             val clienteIdFormatoErradoQntd = filter {
                 it.propertyPath.toString() == "clienteId" && it.message.equals("Campo deve estar no formato de UUID")
-            }.size
-            val clienteIdEmBrancoQntd = filter {
-                it.propertyPath.toString() == "clienteId" && it.message.equals("não deve estar em branco")
             }.size
             val tipoContaNuloQntd = filter {
                 it.propertyPath.toString() == "tipoConta" && it.message.equals("não deve ser nulo")
@@ -120,7 +117,6 @@ internal class CadastraChavePixRequestToValidatedProxy(@Inject val validator: Va
                 it.message.equals("Chave Pix inválida")
             }.size
             assertEquals(1, clienteIdFormatoErradoQntd)
-            assertEquals(1, clienteIdEmBrancoQntd)
             assertEquals(1, tipoContaNuloQntd)
             assertEquals(1, tipoChaveNuloQntd)
             assertEquals(1, chavePixInvalidaQntd)

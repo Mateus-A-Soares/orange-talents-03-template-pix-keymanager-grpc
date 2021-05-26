@@ -15,7 +15,7 @@ import javax.validation.constraints.Size
 @Introspected
 @ValidChavePix
 data class ChavePixValidatedProxy(
-    @ValidUUID @field:NotBlank
+    @field:ValidUUID @field:NotBlank
     val clienteId: String?,
     @field:NotNull
     val tipoChave: TipoChave?,
