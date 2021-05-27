@@ -1,9 +1,9 @@
 package br.com.zupacademy.chave.cadastro
 
 import br.com.zupacademy.ChavePixCadastradaResponse
-import br.com.zupacademy.bcb.*
+import br.com.zupacademy.bcb.BcbClient
+import br.com.zupacademy.bcb.CadastraChavePixBcbRequest
 import br.com.zupacademy.chave.ChavePixRespository
-import br.com.zupacademy.chave.TipoConta
 import br.com.zupacademy.itauerp.BuscarContaTipoItauErpResponse
 import br.com.zupacademy.itauerp.ItauErpClient
 import br.com.zupacademy.shared.exceptions.FieldNotFoundException

@@ -4,6 +4,7 @@ import br.com.zupacademy.CadastraChavePixRequest
 import br.com.zupacademy.ChavePixCadastradaResponse
 import br.com.zupacademy.TipoChaveRequest
 import br.com.zupacademy.TipoContaRequest
+import br.com.zupacademy.bcb.BcbClient
 import br.com.zupacademy.chave.ChavePixRespository
 import br.com.zupacademy.itauerp.BuscarContaTipoItauErpResponse
 import br.com.zupacademy.itauerp.InstituicaoResponse
@@ -25,6 +26,11 @@ internal class CadastraChavePixServiceTest() {
 
     private lateinit var chavePixValidatedProxy: ChavePixValidatedProxy
 
+    @MockBean(BcbClient::class)
+    fun bcbClient(): BcbClient {
+        return Mockito.mock(BcbClient::class.java)
+    }
+
     @MockBean(ItauErpClient::class)
     fun itauClient(): ItauErpClient {
         return Mockito.mock(ItauErpClient::class.java)
@@ -39,7 +45,8 @@ internal class CadastraChavePixServiceTest() {
     fun deveEfetuarFuncaoCadastra() {
         val repository = repository()
         val itauClient = itauClient()
-        val chavePixService = CadastraChavePixService(repository = repository, itauClient = itauClient)
+        val bcbClient = bcbClient()
+        val chavePixService = CadastraChavePixService(repository = repository, itauClient = itauClient, bcbClient = bcbClient)
         chavePixValidatedProxy = chavePixValidatedProxy()
         `when`(
             itauClient.buscaPorContaTipo(
@@ -59,7 +66,8 @@ internal class CadastraChavePixServiceTest() {
     fun deveDispararFieldNotFoundException() {
         val repository = repository()
         val itauClient = itauClient()
-        val chavePixService = CadastraChavePixService(repository = repository, itauClient = itauClient)
+        val bcbClient = bcbClient()
+        val chavePixService = CadastraChavePixService(repository = repository, itauClient = itauClient, bcbClient = bcbClient)
         chavePixValidatedProxy = chavePixValidatedProxy()
         `when`(
             itauClient.buscaPorContaTipo(
@@ -77,7 +85,8 @@ internal class CadastraChavePixServiceTest() {
     fun deveDispararUniqueFieldAlreadyExistsException() {
         val repository = repository()
         val itauClient = itauClient()
-        val chavePixService = CadastraChavePixService(repository = repository, itauClient = itauClient)
+        val bcbClient = bcbClient()
+        val chavePixService = CadastraChavePixService(repository = repository, itauClient = itauClient, bcbClient = bcbClient)
         chavePixValidatedProxy = chavePixValidatedProxy()
         `when`(
             itauClient.buscaPorContaTipo(

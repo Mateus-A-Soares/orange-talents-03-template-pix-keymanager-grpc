@@ -2,6 +2,7 @@ package br.com.zupacademy.chave.cadastro
 
 import br.com.zupacademy.*
 import br.com.zupacademy.CadastraChavePixServiceGrpc.CadastraChavePixServiceBlockingStub
+import br.com.zupacademy.bcb.BcbClient
 import br.com.zupacademy.chave.ChavePix
 import br.com.zupacademy.chave.ChavePixRespository
 import br.com.zupacademy.chave.TipoChave
@@ -25,6 +26,7 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.mockito.InjectMocks
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import java.util.*
@@ -33,7 +35,7 @@ import javax.inject.Inject
 @MicronautTest(transactional = false)
 internal class RegistraChavePixTest(
     val repository: ChavePixRespository,
-    val grpcClient: CadastraChavePixServiceBlockingStub
+    @InjectMocks val grpcClient: CadastraChavePixServiceBlockingStub
 ) {
 
     companion object {
@@ -46,6 +48,11 @@ internal class RegistraChavePixTest(
     @MockBean(ItauErpClient::class)
     fun itauClient(): ItauErpClient {
         return Mockito.mock(ItauErpClient::class.java)
+    }
+
+    @MockBean(BcbClient::class)
+    fun bcbClient(): BcbClient {
+        return Mockito.mock(BcbClient::class.java)
     }
 
     @Factory
@@ -70,7 +77,6 @@ internal class RegistraChavePixTest(
             )
         )
             .thenReturn(itauClientResponse())
-
         val response: ChavePixCadastradaResponse = grpcClient.registra(
             CadastraChavePixRequest.newBuilder()
                 .setClienteId(CLIENTE_ID.toString())
