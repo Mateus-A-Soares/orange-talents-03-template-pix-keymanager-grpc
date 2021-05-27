@@ -26,4 +26,4 @@ class Conta(
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     val tipo: TipoConta
-){}
+)
