@@ -10,5 +10,5 @@ import io.micronaut.http.client.annotation.Client
 interface BcbClient {
 
     @Post(consumes = [APPLICATION_XML], processes = [APPLICATION_XML])
-    fun cadastraChave(@Body request: CadastraChavePixBcbRequest): HttpResponse<String?>
+    fun cadastraChave(@Body request: CadastraChavePixBcbRequest): HttpResponse<CadastraChavePixBcbResponse>
 }

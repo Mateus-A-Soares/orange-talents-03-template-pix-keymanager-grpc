@@ -1,6 +1,7 @@
 package br.com.zupacademy.bcb
 
 import br.com.zupacademy.chave.ChavePix
+import br.com.zupacademy.chave.cadastro.ChavePixValidatedProxy
 import br.com.zupacademy.itauerp.TitularResponse
 
 data class CadastraChavePixBcbRequest(
@@ -10,12 +11,12 @@ data class CadastraChavePixBcbRequest(
     val owner: OwnerBcbRequest,
 ) {
     companion object {
-        fun of(chave: ChavePix, owner: OwnerBcbRequest): CadastraChavePixBcbRequest {
+        fun of(chave: ChavePixValidatedProxy, owner: OwnerBcbRequest, bankAccount: BankAccountBcbRequest): CadastraChavePixBcbRequest {
 
             return CadastraChavePixBcbRequest(
-                keyType = KeyTypeBcb.of(chave.tipoChave),
-                key = chave.chave,
-                bankAccount = BankAccountBcbRequest.of(chave.conta),
+                keyType = KeyTypeBcb.of(chave.tipoChave!!),
+                key = chave.chave!!,
+                bankAccount = bankAccount,
                 owner = owner
             )
 

@@ -6,6 +6,8 @@ import br.com.zupacademy.ChavePixCadastradaResponse
 import br.com.zupacademy.shared.exceptions.handlers.config.ErrorHandler
 import io.grpc.stub.StreamObserver
 import io.micronaut.context.event.ApplicationEventPublisher
+import io.micronaut.validation.Validated
+import io.micronaut.validation.validator.Validator
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -17,6 +17,7 @@ open class PersisteChavePixListener(@Inject private val repository: ChavePixResp
     @Transactional
     open fun onCadastraChaveEvent(event: CadastraChaveEvent) {
         if (repository.existsByChave(event.validatedProxy.chave!!)) throw UniqueFieldAlreadyExistsException(field = "chave")
+        event.buildChavePix()
         repository.save(event.chavePix)
     }
 }

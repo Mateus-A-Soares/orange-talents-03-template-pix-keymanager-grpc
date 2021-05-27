@@ -7,6 +7,7 @@ import br.com.zupacademy.chave.conta.Conta
 import br.com.zupacademy.shared.constraints.ValidChavePix
 import br.com.zupacademy.shared.constraints.ValidUUID
 import io.micronaut.core.annotation.Introspected
+import io.micronaut.validation.Validated
 import java.util.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -20,7 +21,7 @@ data class ChavePixValidatedProxy(
     @field:NotNull
     val tipoChave: TipoChave?,
     @field:Size(max = 77)
-    val chave: String?,
+    var chave: String?,
     @field:NotNull
     val tipoConta: TipoConta?
 ) {
@@ -29,7 +30,7 @@ data class ChavePixValidatedProxy(
         return ChavePix(
             clienteId = UUID.fromString(clienteId!!),
             tipoChave = tipoChave!!,
-            chave = if (tipoChave == TipoChave.ALEATORIA) UUID.randomUUID().toString() else chave!!,
+            chave = chave!!,
             conta = conta
         )
     }

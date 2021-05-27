@@ -1,14 +1,11 @@
 package br.com.zupacademy.chave.cadastro.listeners
 
-import br.com.zupacademy.bcb.BcbClient
-import br.com.zupacademy.bcb.CadastraChavePixBcbRequest
-import br.com.zupacademy.bcb.OwnerBcbRequest
+import br.com.zupacademy.bcb.*
 import br.com.zupacademy.chave.cadastro.CadastraChaveEvent
-import br.com.zupacademy.itauerp.BuscarContaTipoItauErpResponse
-import br.com.zupacademy.itauerp.ItauErpClient
-import br.com.zupacademy.shared.exceptions.FieldNotFoundException
-import com.google.rpc.Code
+import br.com.zupacademy.shared.exceptions.ApiException
+import br.com.zupacademy.shared.exceptions.UniqueFieldAlreadyExistsException
 import io.micronaut.core.annotation.Order
+import io.micronaut.http.client.exceptions.HttpClientException
 import io.micronaut.runtime.event.annotation.EventListener
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,11 +16,19 @@ open class PersisteChaveServicoBcbListener(@Inject private val bcbClient: BcbCli
 
     @EventListener
     open fun onCadastraChaveEvent(event: CadastraChaveEvent) {
-        bcbClient.cadastraChave(
-            CadastraChavePixBcbRequest.of(
-                chave = event.chavePix,
-                owner = OwnerBcbRequest.of(event.itauClientResponse!!.titular)
+        try {
+            val bcbResponse = bcbClient.cadastraChave(
+                CadastraChavePixBcbRequest.of(
+                    chave = event.validatedProxy,
+                    bankAccount = BankAccountBcbRequest.of(event.conta),
+                    owner = OwnerBcbRequest.of(event.titularResponse)
+                )
             )
-        )
+            var responseBody = bcbResponse.body()
+            if (responseBody.keyType == KeyTypeBcb.RANDOM)
+                event.validatedProxy.chave = responseBody.key
+        } catch (e: HttpClientException) {
+            throw ApiException()
+        }
     }
 }
