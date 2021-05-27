@@ -10,13 +10,13 @@ data class CadastraChavePixBcbRequest(
     val owner: OwnerBcbRequest,
 ) {
     companion object {
-        fun of(chave: ChavePix, titular: TitularResponse): CadastraChavePixBcbRequest {
+        fun of(chave: ChavePix, owner: OwnerBcbRequest): CadastraChavePixBcbRequest {
 
             return CadastraChavePixBcbRequest(
                 keyType = KeyTypeBcb.of(chave.tipoChave),
                 key = chave.chave,
                 bankAccount = BankAccountBcbRequest.of(chave.conta),
-                owner = OwnerBcbRequest.of(titular)
+                owner = owner
             )
 
         }
