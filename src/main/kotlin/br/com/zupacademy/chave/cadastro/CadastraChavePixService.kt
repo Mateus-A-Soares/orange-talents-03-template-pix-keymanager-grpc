@@ -12,6 +12,7 @@ import com.google.rpc.Code
 import io.micronaut.validation.Validated
 import javax.inject.Inject
 import javax.inject.Singleton
+import javax.transaction.Transactional
 import javax.validation.Valid
 
 @Singleton
@@ -22,6 +23,7 @@ class CadastraChavePixService(
     @Inject val repository: ChavePixRespository
 ) {
 
+    @Transactional
     fun cadastra(@Valid chavePixValidada: ChavePixValidatedProxy): ChavePixCadastradaResponse {
         val contaResponse: BuscarContaTipoItauErpResponse? = itauClient.buscaPorContaTipo(
             clienteId = chavePixValidada.clienteId!!,
