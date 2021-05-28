@@ -5,7 +5,7 @@ import br.com.zupacademy.chave.cadastro.CadastraChaveEvent
 import br.com.zupacademy.shared.exceptions.ApiException
 import br.com.zupacademy.shared.exceptions.UniqueFieldAlreadyExistsException
 import io.micronaut.core.annotation.Order
-import io.micronaut.http.client.exceptions.HttpClientException
+import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.runtime.event.annotation.EventListener
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -27,7 +27,12 @@ open class PersisteChaveServicoBcbListener(@Inject private val bcbClient: BcbCli
             var responseBody = bcbResponse.body()
             if (responseBody.keyType == KeyTypeBcb.RANDOM)
                 event.validatedProxy.chave = responseBody.key
-        } catch (e: HttpClientException) {
+        } catch (e: HttpClientResponseException) {
+            val errorMessage = e.response.getBody(Problem::class.java)
+            errorMessage.ifPresent {
+                if (it.detail?.equals("The informed Pix key exists already") == true)
+                    throw UniqueFieldAlreadyExistsException(field = "chave", message = it.detail)
+            }
             throw ApiException()
         }
     }

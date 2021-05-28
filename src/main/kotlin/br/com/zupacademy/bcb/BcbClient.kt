@@ -5,7 +5,7 @@ import io.micronaut.http.MediaType.APPLICATION_XML
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
 
-@Client("\${bcbService.keys.url}")
+@Client("\${bcbService.keys.url}", errorType = Problem::class)
 interface BcbClient {
 
     @Post(consumes = [APPLICATION_XML], processes = [APPLICATION_XML])

@@ -10,7 +10,6 @@ class DefaultExceptionHandler : ExceptionHandler<Exception> {
     }
 
     override fun handle(e: Exception): StatusWithDetails {
-        e.printStackTrace()
         return StatusWithDetails(Status.UNKNOWN.withCause(e))
     }
 }
