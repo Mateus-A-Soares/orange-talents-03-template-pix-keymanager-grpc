@@ -33,4 +33,8 @@ class ChavePix(
     @Column(nullable = false)
     @DateCreated
     val persistenceTimestamp: Instant? = null
+
+    override fun toString(): String {
+        return "ChavePix(clienteId=$clienteId, chave='$chave', tipoChave=$tipoChave, conta=$conta, id=$id, persistenceTimestamp=$persistenceTimestamp)"
+    }
 }

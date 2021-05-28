@@ -1,8 +1,6 @@
 package br.com.zupacademy.bcb
 
-import br.com.zupacademy.chave.ChavePix
 import br.com.zupacademy.chave.cadastro.ChavePixValidatedProxy
-import br.com.zupacademy.itauerp.TitularResponse
 
 data class CadastraChavePixBcbRequest(
     val keyType: KeyTypeBcb,

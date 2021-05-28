@@ -14,7 +14,7 @@ class DeletaChavePixEndpoint(@Inject val chavePixService: DeleteChavePixService)
     DeletaChavePixServiceGrpc.DeletaChavePixServiceImplBase() {
 
     override fun deleta(request: DeletaChavePixRequest, observer: StreamObserver<DeletaChavePixResponse>) {
-        chavePixService.deleta(clienteId = request.clienteId, chaveId = request.chavePixId)
+        chavePixService.deleta(clienteId = request.clienteId, chave = request.chavePixId)
         observer.onNext(DeletaChavePixResponse.newBuilder().build())
         observer.onCompleted()
     }

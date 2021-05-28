@@ -2,7 +2,7 @@ package br.com.zupacademy.bcb
 
 import java.time.LocalDateTime
 
-data class CadastraChavePixBcbResponse(
+data class ChavePixBcbDetailsResponse(
     val keyType: KeyTypeBcb,
     val key: String,
     val bankAccount: BankAccountBcbResponse,
