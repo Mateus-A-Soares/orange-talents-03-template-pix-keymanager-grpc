@@ -5,7 +5,6 @@ import br.com.zupacademy.TipoChaveRequest
 import br.com.zupacademy.TipoContaRequest
 import br.com.zupacademy.chave.TipoChave
 import br.com.zupacademy.chave.TipoConta
-import br.com.zupacademy.chave.conta.Conta
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import io.micronaut.validation.validator.Validator
 import org.junit.jupiter.api.Assertions.*
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import java.util.*
 import java.util.stream.Stream
 import javax.inject.Inject
 
@@ -43,23 +41,9 @@ internal class CadastraChavePixRequestToValidatedProxy(@Inject val validator: Va
         )
     }
 
-    @Test
-    fun validatedProxyToModelDeveGerarChaveAleatoria() {
-        val request = CadastraChavePixRequest.newBuilder()
-            .setClienteId("234d861f-9b3d-4259-976b-b79750199ed5")
-            .setTipoChave(TipoChaveRequest.TIPO_CHAVE_ALEATORIA)
-            .setTipoConta(TipoContaRequest.TIPO_CONTA_CORRENTE)
-            .setValorChave("").build()
-        val model = request.toValidatedProxy().toModel(Conta(instituicao = "", agencia= "", numero = "", tipo = request.tipoConta.toModel()!!))
-        assertEquals(TipoChave.ALEATORIA, model.tipoChave)
-        assertDoesNotThrow {
-            UUID.fromString(model.chave)
-        }
-    }
-
     @ParameterizedTest
     @MethodSource("chavePixValida")
-    fun validacaoChavePixDeveFuncionar(tipoChaveRequest: TipoChaveRequest, valorChave: String?) {
+    fun `validacao da chave pix não deve retornar constraint violations`(tipoChaveRequest: TipoChaveRequest, valorChave: String?) {
         val request = CadastraChavePixRequest.newBuilder()
             .setClienteId("234d861f-9b3d-4259-976b-b79750199ed5")
             .setTipoChave(tipoChaveRequest)
@@ -75,7 +59,7 @@ internal class CadastraChavePixRequestToValidatedProxy(@Inject val validator: Va
 
     @ParameterizedTest
     @MethodSource("chavePixInvalida")
-    fun validacaoChavePixDeveFalhar(tipoChaveRequest: TipoChaveRequest, valorChave: String?, tipoChave: TipoChave) {
+    fun `validacao chave pix deve falhar para par tipo-valor invalidos`(tipoChaveRequest: TipoChaveRequest, valorChave: String?, tipoChave: TipoChave) {
         val request = CadastraChavePixRequest.newBuilder()
             .setClienteId("234d861f-9b3d-4259-976b-b79750199ed5")
             .setTipoConta(TipoContaRequest.TIPO_CONTA_POUPANCA)
@@ -92,7 +76,7 @@ internal class CadastraChavePixRequestToValidatedProxy(@Inject val validator: Va
     }
 
     @Test
-    fun deveRetornarValidateProxyComErrosDeValidacao() {
+    fun `validacao da chave pix deve retornar constraint violations`() {
         val request = CadastraChavePixRequest.newBuilder()
             .setClienteId("1234")
             .setTipoChave(TipoChaveRequest.TIPO_CHAVE_UNSPECIFIED)
