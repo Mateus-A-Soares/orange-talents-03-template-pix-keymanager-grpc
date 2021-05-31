@@ -4,7 +4,7 @@ import br.com.zupacademy.*
 import br.com.zupacademy.CadastraChavePixServiceGrpc.CadastraChavePixServiceBlockingStub
 import br.com.zupacademy.bcb.*
 import br.com.zupacademy.chave.ChavePix
-import br.com.zupacademy.chave.ChavePixRespository
+import br.com.zupacademy.chave.ChavePixRepository
 import br.com.zupacademy.chave.TipoChave
 import br.com.zupacademy.chave.TipoConta
 import br.com.zupacademy.chave.conta.ItauBank
@@ -41,7 +41,7 @@ import javax.inject.Inject
 
 @MicronautTest(transactional = false)
 internal class RegistraChavePixTest(
-    val repository: ChavePixRespository,
+    val repository: ChavePixRepository,
     @InjectMocks val grpcClient: CadastraChavePixServiceBlockingStub
 ) {
 

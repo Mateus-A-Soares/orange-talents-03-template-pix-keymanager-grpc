@@ -2,7 +2,7 @@ package br.com.zupacademy.chave.deleta
 
 import br.com.zupacademy.bcb.BcbClient
 import br.com.zupacademy.bcb.DeletaChavePixBcbRequest
-import br.com.zupacademy.chave.ChavePixRespository
+import br.com.zupacademy.chave.ChavePixRepository
 import br.com.zupacademy.shared.constraints.ValidUUID
 import br.com.zupacademy.shared.exceptions.ApiException
 import br.com.zupacademy.shared.exceptions.FieldNotFoundException
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank
 
 @Validated
 @Singleton
-class DeleteChavePixService(@Inject val repository: ChavePixRespository, @Inject val bcbClient: BcbClient) {
+class DeleteChavePixService(@Inject val repository: ChavePixRepository, @Inject val bcbClient: BcbClient) {
 
     fun deleta(
         @NotBlank @ValidUUID(message = "Id do cliente não pode estar vazio") clienteId: String?,

@@ -1,6 +1,6 @@
 package br.com.zupacademy.shared.constraints
 
-import br.com.zupacademy.chave.ChavePixRespository
+import br.com.zupacademy.chave.ChavePixRepository
 import io.micronaut.core.annotation.AnnotationValue
 import io.micronaut.validation.validator.constraints.ConstraintValidator
 import io.micronaut.validation.validator.constraints.ConstraintValidatorContext
@@ -22,7 +22,7 @@ annotation class ChavePixUnique(
 )
 
 @Singleton
-class ChavePixUniqueValidator(@Inject private val repository: ChavePixRespository) : ConstraintValidator<ChavePixUnique, String>{
+class ChavePixUniqueValidator(@Inject private val repository: ChavePixRepository) : ConstraintValidator<ChavePixUnique, String>{
 
     override fun isValid(
         chavePix: String,

@@ -7,7 +7,7 @@ import br.com.zupacademy.bcb.BcbClient
 import br.com.zupacademy.bcb.DeletaChavePixBcbRequest
 import br.com.zupacademy.bcb.DeletaChavepPixBcbResponse
 import br.com.zupacademy.chave.ChavePix
-import br.com.zupacademy.chave.ChavePixRespository
+import br.com.zupacademy.chave.ChavePixRepository
 import br.com.zupacademy.chave.TipoChave
 import br.com.zupacademy.chave.TipoConta
 import br.com.zupacademy.chave.conta.Conta
@@ -36,7 +36,7 @@ import javax.inject.Inject
 
 @MicronautTest(transactional = false)
 internal class DeletaChavePixTest(
-    val repository: ChavePixRespository,
+    val repository: ChavePixRepository,
     @InjectMocks val grpcClient: DeletaChavePixServiceBlockingStub
 ) {
 

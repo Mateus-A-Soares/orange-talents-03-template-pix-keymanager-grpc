@@ -1,6 +1,6 @@
 package br.com.zupacademy.chave.cadastro.listeners
 
-import br.com.zupacademy.chave.ChavePixRespository
+import br.com.zupacademy.chave.ChavePixRepository
 import br.com.zupacademy.chave.cadastro.CadastraChaveEvent
 import br.com.zupacademy.shared.exceptions.UniqueFieldAlreadyExistsException
 import io.micronaut.core.annotation.Order
@@ -11,7 +11,7 @@ import javax.transaction.Transactional
 
 @Singleton
 @Order(Int.MAX_VALUE)
-open class PersisteChavePixListener(@Inject private val repository: ChavePixRespository) {
+open class PersisteChavePixListener(@Inject private val repository: ChavePixRepository) {
 
     @EventListener
     @Transactional
