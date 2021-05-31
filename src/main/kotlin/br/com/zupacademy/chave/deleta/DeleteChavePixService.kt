@@ -12,14 +12,12 @@ import io.micronaut.validation.Validated
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
-import javax.transaction.Transactional
 import javax.validation.constraints.NotBlank
 
 @Validated
 @Singleton
 class DeleteChavePixService(@Inject val repository: ChavePixRespository, @Inject val bcbClient: BcbClient) {
 
-    @Transactional
     fun deleta(
         @NotBlank @ValidUUID(message = "Id do cliente não pode estar vazio") clienteId: String?,
         @NotBlank @ValidUUID(message = "Id da chave não pode estar vazio") chave: String?
@@ -33,7 +31,18 @@ class DeleteChavePixService(@Inject val repository: ChavePixRespository, @Inject
         )
         val response =
             bcbClient.deletaChave(chave = chavePix.chave, request = DeletaChavePixBcbRequest(key = chavePix.chave))
-        if (response.status != HttpStatus.OK) throw ApiException()
-        repository.delete(chavePix)
+
+        when(response.status) {
+            HttpStatus.OK -> repository.delete(chavePix) // Transacional
+            HttpStatus.NOT_FOUND -> {
+                repository.delete(chavePix) // Transacional
+                throw FieldNotFoundException(
+                    field = "chave",
+                    message = "Chave não está na lista de chaves do cliente",
+                    rpcCode = Code.NOT_FOUND
+                )
+            }
+            else -> throw ApiException()
+        }
     }
 }
