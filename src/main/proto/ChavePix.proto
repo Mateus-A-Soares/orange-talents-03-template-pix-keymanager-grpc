@@ -6,6 +6,8 @@ option java_outer_classname = "ChavePixGrpc";
 
 package br.com.zupacademy;
 
+import "google/protobuf/timestamp.proto";
+
 // CADASTRA
 service CadastraChavePixService {
 
@@ -50,6 +52,41 @@ message DeletaChavePixRequest {
 }
 
 message DeletaChavePixResponse {
+}
+
+// CONSULTA
+service ConsultaChavePixService{
+    rpc Consulta(ConsultaChavePixRequest) returns (ConsultaChavePixResponse) {}
+    rpc ConsultaInterna(ConsultaInternaChavePixRequest) returns (ConsultaChavePixResponse) {}
+}
+
+message Conta {
+    string titular = 1;
+    string cpf = 2;
+    string instituicao = 3;
+    string agencia = 4;
+    string numero = 5;
+    TipoContaRequest tipo_conta = 6;
+    google.protobuf.Timestamp persistence_timestamp = 7;
+}
+
+message  ConsultaChavePixRequest {
+    string cliente_id = 1;
+    string chave_pix_id = 2;
+}
+
+message  ConsultaInternaChavePixRequest {
+    string cliente_id = 1;
+    string chave_pix_id = 2;
+}
+
+message  ConsultaChavePixResponse {
+    string cliente_id = 1;
+    string chave_pix_id = 2;
+    TipoChaveRequest tipo_chave = 3;
+    string valor_chave = 4;
+    Conta conta = 5;
+
 }
 
 // ERROR MESSAGE
