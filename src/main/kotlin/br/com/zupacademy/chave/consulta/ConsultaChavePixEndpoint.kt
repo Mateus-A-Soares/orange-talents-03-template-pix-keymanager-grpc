@@ -21,4 +21,13 @@ class ConsultaChavePixEndpoint(@Inject val service: ConsultaChavePixService) :
         observer.onNext(response)
         observer.onCompleted()
     }
+
+    override fun consultaInterna(
+        request: ConsultaInternaChavePixRequest,
+        observer: StreamObserver<ConsultaChavePixResponse>
+    ){
+        val response: ConsultaChavePixResponse = service.consultaInterna(request.chavePix)
+        observer.onNext(response)
+        observer.onCompleted()
+    }
 }

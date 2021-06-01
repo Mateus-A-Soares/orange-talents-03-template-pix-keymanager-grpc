@@ -67,7 +67,6 @@ message Conta {
     string agencia = 4;
     string numero = 5;
     TipoContaRequest tipo_conta = 6;
-    google.protobuf.Timestamp persistence_timestamp = 7;
 }
 
 message  ConsultaChavePixRequest {
@@ -76,8 +75,7 @@ message  ConsultaChavePixRequest {
 }
 
 message  ConsultaInternaChavePixRequest {
-    string cliente_id = 1;
-    string chave_pix_id = 2;
+    string chave_pix = 2;
 }
 
 message  ConsultaChavePixResponse {
@@ -86,7 +84,7 @@ message  ConsultaChavePixResponse {
     TipoChaveRequest tipo_chave = 3;
     string valor_chave = 4;
     Conta conta = 5;
-
+    google.protobuf.Timestamp persistence_timestamp = 7;
 }
 
 // ERROR MESSAGE

@@ -13,11 +13,14 @@ import br.com.zupacademy.shared.exceptions.FieldNotFoundException
 import br.com.zupacademy.toGrpcRequest
 import com.google.protobuf.Timestamp
 import com.google.rpc.Code
+import io.micronaut.http.HttpStatus
 import io.micronaut.validation.Validated
+import java.time.ZoneOffset
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
-import javax.validation.constraints.NotNull
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Size
 
 @Validated
 @Singleton
@@ -27,10 +30,9 @@ class ConsultaChavePixService(
     @Inject val itauClient: ItauErpClient
 ) {
 
-
     fun consulta(
-        @NotNull @ValidUUID chaveIdString: String,
-        @NotNull @ValidUUID clienteIdString: String
+        @NotBlank @ValidUUID chaveIdString: String,
+        @NotBlank @ValidUUID clienteIdString: String
     ): ConsultaChavePixResponse {
         val chaveId = UUID.fromString(chaveIdString)
         val clienteId = UUID.fromString(clienteIdString)
@@ -40,16 +42,54 @@ class ConsultaChavePixService(
                 message = "Chave não está na lista de chaves do cliente",
                 rpcCode = Code.NOT_FOUND
             )
-        val bcbResponse: ChavePixBcbDetailsResponse? =
-            bcbClient.buscaChave(chavePix.chave).body() ?: throw FieldNotFoundException(
+
+        val bcbResponseStatus = bcbClient.buscaChave(chavePix.chave).status
+        if (bcbResponseStatus != HttpStatus.OK) throw FieldNotFoundException(
+            field = "chave",
+            message = "Chave não está na lista de chaves do cliente",
+            rpcCode = Code.NOT_FOUND
+        )
+
+        return chavePix.toGrpcResponse()
+    }
+
+    fun consultaInterna(@NotBlank @Size(max = 77) chave: String): ConsultaChavePixResponse {
+        val chavePix = repository.findByChave(chave)
+        if (chavePix != null) return chavePix?.toGrpcResponse()
+
+        val chavePixBcb: ChavePixBcbDetailsResponse =
+            bcbClient.buscaChave(chave = chave)?.body() ?: throw FieldNotFoundException(
                 field = "chave",
                 message = "Chave não está na lista de chaves do cliente",
                 rpcCode = Code.NOT_FOUND
             )
+
+        return chavePixBcb?.run {
+            val timestamp = Timestamp.newBuilder().setSeconds(createdAt!!.toEpochSecond(ZoneOffset.UTC))
+                .setNanos(createdAt.nano)
+
+            val contaResponse = Conta.newBuilder().setTitular(owner.name)
+                .setCpf(owner.taxIdNumber)
+                .setInstituicao(bankAccount.participant)
+                .setAgencia(bankAccount.branch)
+                .setNumero(bankAccount.accountNumber)
+                .setTipoConta(bankAccount.accountType.toGrpcRequest())
+                .build()
+
+            ConsultaChavePixResponse.newBuilder()
+                .setTipoChave(keyType.toGrpcRequest())
+                .setValorChave(key)
+                .setConta(contaResponse)
+                .setPersistenceTimestamp(timestamp)
+                .build()
+        }
+    }
+
+    private fun ChavePix.toGrpcResponse(): ConsultaChavePixResponse {
         val itauClientResponse =
             itauClient.buscaPorContaTipo(
-                clienteId = clienteIdString,
-                tipoConta = chavePix.conta.tipo.itauErpParameterName
+                clienteId = clienteId.toString(),
+                tipoConta = conta.tipo.itauErpParameterName
             )
 
         val contaResponse: Conta = itauClientResponse.body()?.run {
@@ -58,22 +98,20 @@ class ConsultaChavePixService(
                 .setInstituicao(instituicao.nome)
                 .setAgencia(agencia)
                 .setNumero(numero)
-                .setTipoConta(chavePix.conta.tipo.toGrpcRequest())
+                .setTipoConta(conta.tipo.toGrpcRequest())
                 .build()
         } ?: throw ApiException()
 
-        chavePix.run {
-            val timestamp = Timestamp.newBuilder().setSeconds(persistenceTimestamp!!.epochSecond)
-                .setNanos(persistenceTimestamp.nano)
+        val timestamp = Timestamp.newBuilder().setSeconds(persistenceTimestamp!!.epochSecond)
+            .setNanos(persistenceTimestamp.nano)
 
-            return ConsultaChavePixResponse.newBuilder()
-                .setClienteId(clienteIdString)
-                .setChavePixId(chaveIdString)
-                .setTipoChave(tipoChave.toGrpcRequest())
-                .setValorChave(chave)
-                .setConta(contaResponse)
-                .setPersistenceTimestamp(timestamp)
-                .build()
-        }
+        return ConsultaChavePixResponse.newBuilder()
+            .setClienteId(clienteId.toString())
+            .setChavePixId(id.toString())
+            .setTipoChave(tipoChave.toGrpcRequest())
+            .setValorChave(chave)
+            .setConta(contaResponse)
+            .setPersistenceTimestamp(timestamp)
+            .build()
     }
 }
