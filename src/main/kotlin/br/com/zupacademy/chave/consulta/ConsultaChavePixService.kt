@@ -6,6 +6,7 @@ import br.com.zupacademy.bcb.BcbClient
 import br.com.zupacademy.bcb.ChavePixBcbDetailsResponse
 import br.com.zupacademy.chave.ChavePix
 import br.com.zupacademy.chave.ChavePixRepository
+import br.com.zupacademy.instituicoes.InstituicaoRepository
 import br.com.zupacademy.itauerp.ItauErpClient
 import br.com.zupacademy.shared.constraints.ValidUUID
 import br.com.zupacademy.shared.exceptions.ApiException
@@ -27,7 +28,8 @@ import javax.validation.constraints.Size
 class ConsultaChavePixService(
     @Inject val repository: ChavePixRepository,
     @Inject val bcbClient: BcbClient,
-    @Inject val itauClient: ItauErpClient
+    @Inject val itauClient: ItauErpClient,
+    @Inject val instituicaoRepository: InstituicaoRepository
 ) {
 
     fun consulta(
@@ -55,26 +57,26 @@ class ConsultaChavePixService(
 
     fun consultaInterna(@NotBlank @Size(max = 77) chave: String): ConsultaChavePixResponse {
         val chavePix = repository.findByChave(chave)
-        if (chavePix != null) return chavePix?.toGrpcResponse()
+        if (chavePix != null) return chavePix.toGrpcResponse()
 
         val chavePixBcb: ChavePixBcbDetailsResponse =
-            bcbClient.buscaChave(chave = chave)?.body() ?: throw FieldNotFoundException(
+            bcbClient.buscaChave(chave = chave).body() ?: throw FieldNotFoundException(
                 field = "chave",
-                message = "Chave não está na lista de chaves do cliente",
+                message = "Chave não encontrada",
                 rpcCode = Code.NOT_FOUND
             )
-
-        return chavePixBcb?.run {
-            val timestamp = Timestamp.newBuilder().setSeconds(createdAt!!.toEpochSecond(ZoneOffset.UTC))
-                .setNanos(createdAt.nano)
-
+        return chavePixBcb.run {
+            val instituicao = instituicaoRepository.findByIspb(bankAccount.participant)
             val contaResponse = Conta.newBuilder().setTitular(owner.name)
                 .setCpf(owner.taxIdNumber)
-                .setInstituicao(bankAccount.participant)
+                .setInstituicao(instituicao?.nomeReduzido ?: bankAccount.participant)
                 .setAgencia(bankAccount.branch)
                 .setNumero(bankAccount.accountNumber)
                 .setTipoConta(bankAccount.accountType.toGrpcRequest())
                 .build()
+
+            val timestamp = Timestamp.newBuilder().setSeconds(createdAt.toEpochSecond(ZoneOffset.UTC))
+                .setNanos(createdAt.nano)
 
             ConsultaChavePixResponse.newBuilder()
                 .setTipoChave(keyType.toGrpcRequest())
