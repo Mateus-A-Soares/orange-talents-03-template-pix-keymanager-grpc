@@ -22,11 +22,17 @@ annotation class ValidUUID(
 @Singleton
 class ValidUUIDValidator : ConstraintValidator<ValidUUID, String> {
 
+    fun isValid(
+        value: String
+    ): Boolean {
+        return value.matches("[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}".toRegex())
+    }
+
     override fun isValid(
         value: String,
         annotationMetadata: AnnotationValue<ValidUUID>,
         context: ConstraintValidatorContext
     ): Boolean {
-        return value.matches("[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}".toRegex())
+        return isValid(value)
     }
 }

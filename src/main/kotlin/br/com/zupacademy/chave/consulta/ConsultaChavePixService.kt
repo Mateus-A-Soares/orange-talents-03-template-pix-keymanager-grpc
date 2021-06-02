@@ -9,7 +9,6 @@ import br.com.zupacademy.chave.ChavePixRepository
 import br.com.zupacademy.instituicoes.InstituicaoRepository
 import br.com.zupacademy.itauerp.ItauErpClient
 import br.com.zupacademy.shared.constraints.ValidUUID
-import br.com.zupacademy.shared.exceptions.ApiException
 import br.com.zupacademy.shared.exceptions.FieldNotFoundException
 import br.com.zupacademy.toGrpcRequest
 import com.google.protobuf.Timestamp
@@ -89,7 +88,7 @@ class ConsultaChavePixService(
 
     private fun ChavePix.toGrpcResponse(): ConsultaChavePixResponse {
         val itauClientResponse =
-            itauClient.buscaPorContaTipo(
+            itauClient.buscaContaPorTipo(
                 clienteId = clienteId.toString(),
                 tipoConta = conta.tipo.itauErpParameterName
             )
