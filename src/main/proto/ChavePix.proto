@@ -87,6 +87,28 @@ message  ConsultaChavePixResponse {
     google.protobuf.Timestamp persistence_timestamp = 7;
 }
 
+service ConsultaChavesPixPorClienteService{
+    rpc Consulta(ConsultaChavesPixPorClienteRequest) returns (ChavesPixPorClienteResponseList) {}
+}
+
+message ConsultaChavesPixPorClienteRequest {
+    string cliente_id = 1;
+}
+
+message ChavesPixPorClienteResponse{
+    string cliente_id = 1;
+    string chave_pix_id = 2;
+    TipoChaveRequest tipo_chave = 3;
+    string valor_chave = 4;
+    TipoContaRequest tipo_conta = 5;
+    google.protobuf.Timestamp persistence_timestamp = 6;
+}
+
+message ChavesPixPorClienteResponseList {
+    repeated ChavesPixPorClienteResponse lista_de_chaves = 1;
+}
+
+
 // ERROR MESSAGE
 message FieldErrorDetails {
     string field = 1;
