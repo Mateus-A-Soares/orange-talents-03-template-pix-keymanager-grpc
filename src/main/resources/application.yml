@@ -3,7 +3,7 @@ micronaut:
     name: orangeTalents03TemplatePixKeymanagerGrpc
 
 itauErpService:
-  url: ${ITAUERP_URLasdas:`http://localhost:9091/api/v1`}
+  url: ${ITAUERP_URL:`http://localhost:9091/api/v1`}
   contas:
     path: /private/contas/todas
   cliente:

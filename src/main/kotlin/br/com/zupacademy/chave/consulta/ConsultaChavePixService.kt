@@ -102,7 +102,7 @@ class ConsultaChavePixService(
                 .setNumero(numero)
                 .setTipoConta(conta.tipo.toGrpcRequest())
                 .build()
-        } ?: throw ApiException()
+        } ?: throw FieldNotFoundException(field= "Conta", rpcCode = Code.FAILED_PRECONDITION)
 
         val timestamp = Timestamp.newBuilder().setSeconds(persistenceTimestamp!!.epochSecond)
             .setNanos(persistenceTimestamp.nano)
