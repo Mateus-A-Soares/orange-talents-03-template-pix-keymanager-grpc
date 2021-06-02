@@ -97,7 +97,7 @@ internal class RegistraChavePixTest(
             .build()
         val itauClientResponse = itauClientResponse()
         `when`(
-            itauErpClient.buscaPorContaTipo(
+            itauErpClient.buscaContaPorTipo(
                 clienteId = request.clienteId,
                 tipoConta = TipoConta.CORRENTE.itauErpParameterName
             )
@@ -148,7 +148,7 @@ internal class RegistraChavePixTest(
             .setTipoConta(TipoContaRequest.TIPO_CONTA_CORRENTE)
             .build()
         `when`(
-            itauErpClient.buscaPorContaTipo(
+            itauErpClient.buscaContaPorTipo(
                 clienteId = request.clienteId,
                 tipoConta = TipoConta.CORRENTE.itauErpParameterName
             )
@@ -182,7 +182,7 @@ internal class RegistraChavePixTest(
             .setTipoConta(TipoContaRequest.TIPO_CONTA_CORRENTE)
             .build()
         `when`(
-            itauErpClient.buscaPorContaTipo(
+            itauErpClient.buscaContaPorTipo(
                 clienteId = CLIENTE_ID.toString(),
                 tipoConta = TipoConta.CORRENTE.itauErpParameterName
             )
@@ -227,7 +227,7 @@ internal class RegistraChavePixTest(
             )
         )
         `when`(
-            itauErpClient.buscaPorContaTipo(
+            itauErpClient.buscaContaPorTipo(
                 clienteId = CLIENTE_ID.toString(),
                 tipoConta = TipoConta.CORRENTE.itauErpParameterName
             )

@@ -16,7 +16,7 @@ internal class ItauErpClientTest(@Inject val itauErpClient: ItauErpClient) {
 
     @Test
     fun deveRetornarHttpResponse() {
-        val buscaPorContaTipo: HttpResponse<BuscarContaTipoItauErpResponse> = itauErpClient.buscaPorContaTipo(
+        val buscaPorContaTipo: HttpResponse<BuscarContaTipoItauErpResponse> = itauErpClient.buscaContaPorTipo(
             clienteId = "9478460b-9133-4546-bacc-43cce3e43971",
             tipoConta = TipoConta.CORRENTE.itauErpParameterName
         )
@@ -27,7 +27,7 @@ internal class ItauErpClientTest(@Inject val itauErpClient: ItauErpClient) {
     @Test
     fun naoDeveAceitarDadosInvalidos() {
         val exception = assertThrows<HttpClientResponseException> {
-            itauErpClient.buscaPorContaTipo(
+            itauErpClient.buscaContaPorTipo(
                 clienteId = "",
                 tipoConta = ""
             )

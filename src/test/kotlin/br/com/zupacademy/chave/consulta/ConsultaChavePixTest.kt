@@ -108,7 +108,7 @@ internal class ConsultaChavePixTest(
             bcbClient.buscaChave(chave.chave)
         ).thenReturn(bcbClientResponse)
         `when`(
-            itauClient.buscaPorContaTipo(
+            itauClient.buscaContaPorTipo(
                 clienteId = chave.clienteId.toString(),
                 tipoConta = chave.conta.tipo.itauErpParameterName
             )
@@ -197,7 +197,7 @@ internal class ConsultaChavePixTest(
             bcbClient.buscaChave(chave.chave)
         ).thenReturn(bcbClientResponse)
         `when`(
-            itauClient.buscaPorContaTipo(
+            itauClient.buscaContaPorTipo(
                 clienteId = chave.clienteId.toString(),
                 tipoConta = chave.conta.tipo.itauErpParameterName
             )

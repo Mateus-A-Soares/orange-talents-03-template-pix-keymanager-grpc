@@ -18,7 +18,7 @@ class ProcuraContaItauClientListener(@Inject private val itauClient: ItauErpClie
 
     @EventListener
     fun onCadastraChaveEvent(@Valid event: CadastraChaveEvent) {
-        val response = itauClient.buscaPorContaTipo(
+        val response = itauClient.buscaContaPorTipo(
             clienteId = event.validatedProxy.clienteId!!,
             tipoConta = event.validatedProxy.tipoConta!!.itauErpParameterName
         ).body() ?: throw FieldNotFoundException(
