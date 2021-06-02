@@ -13,7 +13,7 @@ noArg {
     annotation("javax.persistence.Embeddable")
 }
 
-version = "1.5"
+version = "2.1"
 group = "br.com.zupacademy"
 
 repositories {
